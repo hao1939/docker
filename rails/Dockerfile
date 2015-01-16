@@ -3,9 +3,6 @@
 
 FROM ruby:2.2.0
 
-RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y mysql-client postgresql-client sqlite3 --no-install-recommends && rm -rf /var/lib/apt/lists/*
-
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
@@ -22,4 +19,13 @@ ONBUILD COPY . /usr/src/app
 
 EXPOSE 3000
 CMD ["rails", "server"]
+
+RUN apt-get update && apt-get install -y \
+  nodejs-legacy \
+  npm \
+  mysql-client \
+  postgresql-client \
+  sqlite3 \
+  --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN npm install bower -g
 
