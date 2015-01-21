@@ -15,9 +15,6 @@ COPY Gemfile /usr/src/app/
 COPY Gemfile.lock /usr/src/app/
 RUN bundle install
 
-ONBUILD COPY . /usr/src/app
-
-
 EXPOSE 3000
 CMD ["rails", "server"]
 
